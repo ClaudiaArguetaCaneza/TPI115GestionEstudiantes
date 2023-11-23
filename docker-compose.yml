@@ -1,0 +1,65 @@
+version: '3'
+services:
+  # Laravel app service
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.laravel-dev
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=attendance_tse_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=smtp.gmail.com
+      - MAIL_PORT=465
+      - MAIL_USERNAME=salvadorehchavez@gmail.com
+      - MAIL_PASSWORD=AngelHand295
+      - MAIL_ENCRYPTION=ssl
+      - MAIL_FROM_ADDRESS="salvadorehchavez@gmail.com"
+
+  # MySQL service
+  db:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=job_board_ues
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+    ports:
+      - "3309:3306"
+
+  # Laravel development server
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.laravel-dev
+    volumes:    # Por alguna razón falla en producción.
+       - .:/var/www/html
+    working_dir: /var/www/html
+    # volumes:
+    #   - ./volumenes:/var/www/html #ESTO CAUSA EL ERROR DEL VENDOR/AUTOLOAD que no lo encuentra
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    ports:
+    #   - "8002:8000"
+     - "8003:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=job_board_ues
+      - DB_USERNAME=root
+      - DB_PASSWORD=

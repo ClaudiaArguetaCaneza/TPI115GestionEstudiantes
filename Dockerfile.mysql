@@ -1,0 +1,13 @@
+# Use the official MySQL image as the base image
+FROM mysql:latest
+
+# Set the root password for MySQL
+ENV MYSQL_ROOT_PASSWORD=
+
+# Create a new database
+ENV MYSQL_DATABASE=job_board_ues
+ENV MYSQL_USER=root
+ENV MYSQL_PASSWORD=
+
+# Expose port 3306 for MySQL
+EXPOSE 3306
