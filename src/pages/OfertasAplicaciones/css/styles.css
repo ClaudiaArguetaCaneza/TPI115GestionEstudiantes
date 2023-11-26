@@ -1,0 +1,18 @@
+.custom-card {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ajusta los valores según tu preferencia */
+    transition: box-shadow 0.3s ease; /* Agrega transición para un efecto suave al cambiar la sombra */
+  }
+  
+  .custom-card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Ajusta los valores para hacer la sombra más notable al pasar el ratón sobre la tarjeta */
+  }
+  
+  .buscador {
+    display: flex;
+    align-items: center;  
+  }
+  
+  .icono-lupa {
+    margin-right: 5px;  
+    font-size: 24px;  
+  }
